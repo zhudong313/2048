@@ -15,13 +15,23 @@ function startFun(){
 		for(var x=0;x<4;x++,n++){
 			arr[y][x]=false;//表示无数字
 			spanArrAll[y][x]=null;
+			
 			var li=document.createElement('li');//创建画布的每个格子
 			frag.appendChild(li);
 			
 			randomArr[n]=n;//创建[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 		}
 	}
+	boxNode.innerHTML='<ul></ul>';
+	ulNode=boxNode.getElementsByTagName('ul')[0];
 	ulNode.appendChild(frag);//创建画布
+	
+	if(window.localStorage){//如果存在本地数据就不重新开始
+		if(localStorage.arr)
+		{
+			return;
+		}
+	}
 	
 	//开始随机的两个
 	var spanArr=[];//记录随机的两个span
@@ -67,7 +77,52 @@ function startFun(){
 	},0);
 }
 
-startFun();
+function localStorageFun(){//本地储存
+	startFun();
+	if(window.localStorage){
+		if(localStorage.arr)
+		{
+			
+			var localArr=eval("["+localStorage.arr+"]");
+			//console.log(localArr);
+			for(var i=0;i<localArr.length;i++){
+				var iX=Math.floor(i%4);
+				var iY=Math.floor(i/4);
+				arr[iY][iX]=localArr[i];
+			}
+			
+			var frag=document.createDocumentFragment();
+			for(var y=0;y<4;y++){
+				spanArrAll[y]=[];
+				for(var x=0;x<4;x++){
+					if(arr[y][x]!=false){
+						var span=document.createElement("span");
+						span.innerHTML=arr[y][x];
+						span.style.left=(spanWidth+spanBorder)*x+"px";//让数字对应到坐标
+						span.style.top=(spanWidth+spanBorder)*y+"px";//让数字对应到坐标
+						span.style.transform="scale(1,1)";
+						span.className="span"+arr[y][x];
+						spanArrAll[y][x]=span;
+						frag.appendChild(span);
+					}
+				}
+			}
+			boxNode.appendChild(frag);
+		}
+
+	}
+	
+}
+localStorageFun();//开始游戏
+var restartNode=document.getElementById('restart')
+restartNode.onclick=function(){//重新开始游戏
+	if(window.localStorage)
+	{
+		localStorage.removeItem("arr");//删除本地数据
+	}
+	localStorageFun();//开始游戏
+};
+
 //console.log(arr);
 document.onkeydown=function(e){
 	var event=window.event || e;
@@ -124,7 +179,6 @@ function keyDownFun(keyCode){
 	if(keyCode>=37 && keyCode<=40)
 	{
 	
-		var bool=false;//表示没有移动；true表示移动了
 		if(keyCode==38)//上
 		{
 			
@@ -139,7 +193,6 @@ function keyDownFun(keyCode){
 							continue;//直接进入下一次循环
 						}
 						
-						bool=true;
 						spanArrAll[y][x].style.left=(spanWidth+spanBorder)*posArr[0]+"px";//让数字对应到坐标
 						spanArrAll[y][x].style.top=(spanWidth+spanBorder)*posArr[1]+"px";//让数字对应到坐标
 						
@@ -170,7 +223,6 @@ function keyDownFun(keyCode){
 								continue;//直接进入下一次循环
 							}
 							
-							bool=true;
 							spanArrAll[y][x].style.left=(spanWidth+spanBorder)*posArr[0]+"px";//让数字对应到坐标
 							spanArrAll[y][x].style.top=(spanWidth+spanBorder)*posArr[1]+"px";//让数字对应到坐标
 							
@@ -200,7 +252,6 @@ function keyDownFun(keyCode){
 								continue;//直接进入下一次循环
 							}
 							
-							bool=true;
 							spanArrAll[y][x].style.left=(spanWidth+spanBorder)*posArr[0]+"px";//让数字对应到坐标
 							spanArrAll[y][x].style.top=(spanWidth+spanBorder)*posArr[1]+"px";//让数字对应到坐标
 							
@@ -230,7 +281,6 @@ function keyDownFun(keyCode){
 								continue;//直接进入下一次循环
 							}
 							
-							bool=true;
 							spanArrAll[y][x].style.left=(spanWidth+spanBorder)*posArr[0]+"px";//让数字对应到坐标
 							spanArrAll[y][x].style.top=(spanWidth+spanBorder)*posArr[1]+"px";//让数字对应到坐标
 							
@@ -249,11 +299,13 @@ function keyDownFun(keyCode){
 				}
 		}
 		
-		if(bool)
-				createOne();
+		createOne();
 	
 	}
 	
+	if(window.localStorage){//本地储存
+	 	localStorage.arr=arr.toString();
+	}
 	//console.log(arr);
 }
 
@@ -364,6 +416,25 @@ function keyCodeRightFun(x,y){// 左；只跟当前的前一个进行比较
 }
 
 function createOne(){//移动玩随机生成一个
+	var lostNum=0;
+	for(var i=0;i<arr.length*arr.length;i++){
+		var iX=Math.floor(i%4);
+		var iY=Math.floor(i/4);
+		if(arr[iY][iX]!=false){
+			lostNum++;
+		}
+	}
+	//console.log(lostNum);
+	if(lostNum==arr.length*arr.length){
+		alert("您已经无路可走了！点击确定重新开始了");
+		if(window.localStorage)
+		{
+			localStorage.removeItem("arr");//删除本地数据
+		}
+		localStorageFun();//开始游戏
+		return 
+	}
+
 	var num=Math.floor(16*Math.random());//0-15;//随机得到一个数
 	var x=num%4;//将一维转二维x
 	var y=Math.floor(num/4);//将一维转二维y

@@ -22,19 +22,21 @@ li{ list-style:none;}
 #box .span1024{ background:#efc441; color:#fff; font-size:30px;}
 #box .span2048,#box .span4096,#box .span8192{ background:#ac5fa7; color:#fff; font-size:30px;}
 @media screen and (max-width:414px){
-	#box{ transform:scale(0.8,0.8);transform-origin:0 0; margin:50px 0 0 20px;}
+	body{ height:400px;}
+	#box{ transform:scale(0.8,0.8);transform-origin:0 0; margin:50px 0 0 38px;}
 }
 @media screen and (max-width:375px){
-	#box{ transform:scale(0.75,0.75);transform-origin:0 0; margin:50px 0 0 8px;}
+	#box{ transform:scale(0.75,0.75);transform-origin:0 0; margin:50px 0 0 28px;}
 }
 @media screen and (max-width:320px){
-	#box{ transform:scale(0.65,0.65);transform-origin:0 0; margin:50px 0 0 5px;}
+	#box{ transform:scale(0.65,0.65);transform-origin:0 0; margin:50px 0 0 22px;}
 }
-
+#restart{ margin:10px auto 0; display:block; width:150px; height:50px; line-height:50px; text-align:center; border-radius:5px; background:#eac74f; color:#fff; font-size:30px; cursor:pointer;}
 </style>
 </head>
 
 <body>
+<span id="restart">重新开始</span>
 <div id="box">
 	<ul>
     </ul>
