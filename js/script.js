@@ -122,6 +122,15 @@ restartNode.onclick=function(){//重新开始游戏
 	}
 	localStorageFun();//开始游戏
 };
+if(window.addEventListener){//兼容移动端
+	restartNode.addEventListener('touchstart',function(){//重新开始游戏
+		if(window.localStorage)
+		{
+			localStorage.removeItem("arr");//删除本地数据
+		}
+		localStorageFun();//开始游戏
+	});
+}
 
 //console.log(arr);
 document.onkeydown=function(e){
@@ -135,7 +144,7 @@ document.onkeydown=function(e){
 if(document.addEventListener){//判断是否支持此方法
 	var startX,startY,endX,endY;
 	document.addEventListener("touchstart",function(event){
-		//event.preventDefault();// 阻止浏览器默认事件，重要
+		event.preventDefault();// 阻止浏览器默认事件，重要
 		//console.log(event,1);
 		var touch = event.targetTouches[0];
 		startX=touch.pageX;//手指所在的坐标x
