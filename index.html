@@ -7,7 +7,7 @@
 <style>
 body,div,ul,li,span{ padding:0; margin:0;}
 li{ list-style:none;}
-#box{ position:relative; width:420px; margin:50px auto 0; border-top:5px solid #b8af9e; border-left:5px solid #b8af9e;}
+#box{ position:relative; width:420px;  border-top:5px solid #b8af9e; margin:50px auto 0; border-left:5px solid #b8af9e;}
 #box ul{ width:100%; overflow:hidden;  background:#ccc0b2;}
 #box li{ float:left; width:100px; height:100px; border-right:5px solid #b8af9e;border-bottom:5px solid #b8af9e;}
 #box span{ position:absolute; width:100px; height:100px; line-height:100px; text-align:center; background:#eee4da; color:#7c736a; font-size:60px; font-family:Arial; transform:scale(0.6,0.6); transition:all 0.2s;}
@@ -21,6 +21,16 @@ li{ list-style:none;}
 #box .span512{ background:#eac74f; color:#fff; font-size:50px;}
 #box .span1024{ background:#efc441; color:#fff; font-size:30px;}
 #box .span2048,#box .span4096,#box .span8192{ background:#ac5fa7; color:#fff; font-size:30px;}
+@media screen and (max-width:414px){
+	#box{ transform:scale(0.8,0.8);transform-origin:0 0; margin:50px 0 0 20px;}
+}
+@media screen and (max-width:375px){
+	#box{ transform:scale(0.75,0.75);transform-origin:0 0; margin:50px 0 0 8px;}
+}
+@media screen and (max-width:320px){
+	#box{ transform:scale(0.65,0.65);transform-origin:0 0; margin:50px 0 0 5px;}
+}
+
 </style>
 </head>
 
