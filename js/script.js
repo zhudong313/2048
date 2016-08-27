@@ -329,6 +329,13 @@ function keyCodeUpFun(x,y){//上；只跟当前的前一个进行比较
 	{
 		if(arr[yy][xx]!=false && arr[yy][xx]==arr[y][x])//与之前相邻相等
 		{
+			if(arr[yy][xx].bool)//防止多次值相等二次递归
+			{
+				delete arr[yy][xx].bool;
+				return [x,y];
+			}
+			
+			arr[yy][xx].bool=true;
 			arr[yy][xx]+=arr[yy][xx];
 			arr[y][x]=false;
 			return [xx,yy];//合并的直接返回
@@ -356,6 +363,13 @@ function keyCodeDownFun(x,y){//下；只跟当前的前一个进行比较
 	{
 		if(arr[yy][xx]!=false && arr[yy][xx]==arr[y][x])//与之前相邻相等
 		{
+			if(arr[yy][xx].bool)//防止多次值相等二次递归
+			{
+				delete arr[yy][xx].bool;
+				return [x,y];
+			}
+			
+			arr[yy][xx].bool=true;
 			arr[yy][xx]+=arr[yy][xx];
 			arr[y][x]=false;
 			return [xx,yy];//合并的直接返回
@@ -383,6 +397,14 @@ function keyCodeLeftFun(x,y){// 左；只跟当前的前一个进行比较
 	{
 		if(arr[yy][xx]!=false && arr[yy][xx]==arr[y][x])//与之前相邻相等
 		{
+			
+			if(arr[yy][xx].bool)//防止多次值相等二次递归
+			{
+				delete arr[yy][xx].bool;
+				return [x,y];
+			}
+			
+			arr[yy][xx].bool=true;
 			arr[yy][xx]+=arr[yy][xx];
 			arr[y][x]=false;
 			return [xx,yy];//合并的直接返回
@@ -409,6 +431,13 @@ function keyCodeRightFun(x,y){// 左；只跟当前的前一个进行比较
 	{
 		if(arr[yy][xx]!=false && arr[yy][xx]==arr[y][x])//与之前相邻相等
 		{
+			if(arr[yy][xx].bool)//防止多次值相等二次递归
+			{
+				delete arr[yy][xx].bool;
+				return [x,y];
+			}
+			
+			arr[yy][xx].bool=true;
 			arr[yy][xx]+=arr[yy][xx];
 			arr[y][x]=false;
 			return [xx,yy];//合并的直接返回
