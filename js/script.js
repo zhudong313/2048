@@ -188,6 +188,7 @@ function keyDownFun(keyCode){
 	if(keyCode>=37 && keyCode<=40)
 	{
 	
+		var bool=false;//false表示没有移动；true表示移动了
 		if(keyCode==38)//上
 		{
 			
@@ -202,6 +203,7 @@ function keyDownFun(keyCode){
 							continue;//直接进入下一次循环
 						}
 						
+						bool=true;
 						spanArrAll[y][x].style.left=(spanWidth+spanBorder)*posArr[0]+"px";//让数字对应到坐标
 						spanArrAll[y][x].style.top=(spanWidth+spanBorder)*posArr[1]+"px";//让数字对应到坐标
 						
@@ -232,6 +234,7 @@ function keyDownFun(keyCode){
 								continue;//直接进入下一次循环
 							}
 							
+							bool=true;
 							spanArrAll[y][x].style.left=(spanWidth+spanBorder)*posArr[0]+"px";//让数字对应到坐标
 							spanArrAll[y][x].style.top=(spanWidth+spanBorder)*posArr[1]+"px";//让数字对应到坐标
 							
@@ -261,6 +264,7 @@ function keyDownFun(keyCode){
 								continue;//直接进入下一次循环
 							}
 							
+							bool=true;
 							spanArrAll[y][x].style.left=(spanWidth+spanBorder)*posArr[0]+"px";//让数字对应到坐标
 							spanArrAll[y][x].style.top=(spanWidth+spanBorder)*posArr[1]+"px";//让数字对应到坐标
 							
@@ -290,6 +294,7 @@ function keyDownFun(keyCode){
 								continue;//直接进入下一次循环
 							}
 							
+							bool=true;
 							spanArrAll[y][x].style.left=(spanWidth+spanBorder)*posArr[0]+"px";//让数字对应到坐标
 							spanArrAll[y][x].style.top=(spanWidth+spanBorder)*posArr[1]+"px";//让数字对应到坐标
 							
@@ -308,7 +313,7 @@ function keyDownFun(keyCode){
 				}
 		}
 		
-		createOne();
+		createOne(bool);
 	
 	}
 	
@@ -424,7 +429,7 @@ function keyCodeRightFun(x,y){// 左；只跟当前的前一个进行比较
 	}
 }
 
-function createOne(){//移动玩随机生成一个
+function createOne(bool){//移动玩随机生成一个////bool的false表示没有移动；true表示移动了
 	var lostNum=0;
 	for(var i=0;i<arr.length*arr.length;i++){
 		var iX=Math.floor(i%4);
@@ -443,13 +448,16 @@ function createOne(){//移动玩随机生成一个
 		localStorageFun();//开始游戏
 		return 
 	}
+	
+	if(!bool)
+		return;
 
 	var num=Math.floor(16*Math.random());//0-15;//随机得到一个数
 	var x=num%4;//将一维转二维x
 	var y=Math.floor(num/4);//将一维转二维y
 	if(arr[y][x])//判断随机的这个存不存在
 	{
-		 createOne();
+		 createOne(bool);
 	}
 	else//不存在
 	{
